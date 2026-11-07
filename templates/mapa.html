@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Mapa{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+{% endblock %}
+
+{% block content %}
+<div class="map-layout">
+  <aside class="map-panel" aria-label="Controles do mapa">
+    <div class="map-panel-head">
+      <h1>Mapa interativo</h1>
+      <p class="muted small">Selecione uma linha para ver o trajeto e as paradas.</p>
+    </div>
+
+    <div class="field search-field">
+      <svg class="icon"><use href="#i-search"/></svg>
+      <input type="search" id="filtro-linhas" placeholder="Filtrar linhas…" autocomplete="off" aria-label="Filtrar linhas">
+    </div>
+
+    <div class="line-pick" id="lista-linhas" role="list"></div>
+
+    <div class="toggles">
+      <label class="switch"><input type="checkbox" id="tg-paradas" checked><span class="slider"></span>Pontos de parada</label>
+      <label class="switch"><input type="checkbox" id="tg-veiculos" checked><span class="slider"></span>Ônibus <em class="sim-tag">simulados</em></label>
+    </div>
+
+    <div class="sim-box" id="sim-box">
+      <div class="sim-title"><svg class="icon"><use href="#i-alert"/></svg>Simulação</div>
+      <p class="small">As posições são calculadas a partir dos horários cadastrados. <strong>Não são ônibus reais.</strong></p>
+      <div class="sim-time">
+        <label for="sim-hora" class="small">Simular horário:</label>
+        <input type="time" id="sim-hora" aria-label="Horário da simulação">
+        <button class="btn btn-small btn-ghost" id="sim-agora" type="button">Agora</button>
+      </div>
+      <p class="small muted" id="sim-status">—</p>
+    </div>
+
+    <div class="line-detail" id="detalhe-linha"></div>
+  </aside>
+
+  <div class="map-wrap">
+    <div id="map" role="application" aria-label="Mapa interativo com linhas e pontos de ônibus"></div>
+    <div class="map-badge" id="sim-badge" hidden><svg class="icon"><use href="#i-alert"/></svg>Ônibus SIMULADOS — não são veículos reais</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="{{ url_for('static', filename='js/mapa.js') }}"></script>
+{% endblock %}

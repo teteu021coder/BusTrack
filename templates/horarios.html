@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Horários{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Horários de saída</h1>
+    <p class="lead">Escolha uma linha para consultar os horários em dias úteis, sábados e domingos.</p>
+
+    <div class="toolbar">
+      <div class="field select-field">
+        <label for="sel-linha" class="sr-only">Linha</label>
+        <svg class="icon"><use href="#i-bus"/></svg>
+        <select id="sel-linha" aria-label="Selecionar linha"></select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container section-tight" id="area-horarios" aria-live="polite">
+  <div class="skeleton-block"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/horarios.js') }}"></script>
+{% endblock %}

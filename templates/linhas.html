@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Linhas{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Linhas de ônibus</h1>
+    <p class="lead">Pesquise por número, nome, origem, destino ou ponto de ônibus.</p>
+
+    <div class="toolbar">
+      <div class="field search-field">
+        <svg class="icon"><use href="#i-search"/></svg>
+        <input type="search" id="filtro-q" placeholder="Ex.: 101, Terminal, Hospital…" autocomplete="off" aria-label="Pesquisar linhas">
+      </div>
+      <div class="chips" role="group" aria-label="Filtros">
+        <button class="chip is-active" data-filtro="todas">Todas</button>
+        <button class="chip" data-filtro="hoje">Operam hoje</button>
+        <button class="chip" data-filtro="freq">A cada 20 min ou menos</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container section-tight">
+  <p class="result-count" id="contagem" aria-live="polite">Carregando…</p>
+  <div class="lines-grid" id="lista-linhas"></div>
+  <div class="empty-state" id="vazio" hidden>
+    <svg class="icon"><use href="#i-search"/></svg>
+    <h3>Nenhuma linha encontrada</h3>
+    <p>Tente buscar por outro número, destino ou ponto de ônibus.</p>
+    <button class="btn btn-primary" id="limpar-filtros">Limpar filtros</button>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/linhas.js') }}"></script>
+{% endblock %}

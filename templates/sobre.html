@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Sobre{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <h1>Sobre o BusTrack</h1>
+    <p class="lead">Um sistema web para facilitar o acesso a informações sobre o transporte público.</p>
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="about-grid">
+    <article class="panel">
+      <h2>O projeto</h2>
+      <p>O <strong>BusTrack</strong> é um projeto de Trabalho de Conclusão de Curso (TCC) do curso técnico de TI. Ele reúne em uma única aplicação web a consulta de linhas, trajetos, pontos de parada e horários de ônibus.</p>
+      <h3>Problema</h3>
+      <p>Informações de transporte público costumam estar espalhadas em tabelas, placas e sites pouco amigáveis, o que dificulta o planejamento da viagem.</p>
+      <h3>Objetivo</h3>
+      <p>Oferecer uma interface moderna, responsiva e intuitiva para consultar o transporte público, com mapa interativo, busca e horários organizados por tipo de dia.</p>
+    </article>
+
+    <article class="panel">
+      <h2>Sobre os dados</h2>
+      <ul class="check-list">
+        <li><svg class="icon"><use href="#i-alert"/></svg><span><strong>Linhas, paradas e horários são fictícios</strong> e foram criados apenas para demonstrar o sistema.</span></li>
+        <li><svg class="icon"><use href="#i-alert"/></svg><span><strong>Os ônibus no mapa são simulados:</strong> a posição é calculada a partir dos horários cadastrados, sem nenhuma fonte de localização real.</span></li>
+        <li><svg class="icon"><use href="#i-check"/></svg><span>A estrutura do banco permite importar dados oficiais (por exemplo, arquivos GTFS) no lugar dos dados de demonstração.</span></li>
+        <li><svg class="icon"><use href="#i-info"/></svg><span>Localização em tempo real de ônibus reais depende de uma API do operador. A SPTrans (cidade de São Paulo) oferece a API "Olho Vivo", que exige cadastro e token, e atende apenas essa cidade.</span></li>
+      </ul>
+      <h3>Tecnologias</h3>
+      <div class="tag-list">
+        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span>
+        <span class="tag">Python · Flask</span><span class="tag">SQLite</span>
+        <span class="tag">Leaflet.js</span><span class="tag">OpenStreetMap</span>
+      </div>
+    </article>
+  </div>
+
+  <article class="panel contact-panel" id="contato">
+    <div class="panel-title"><h2>Fale com a gente</h2></div>
+    <p class="muted">Dúvidas, sugestões ou erros nos dados? Envie uma mensagem — ela fica salva no banco de dados do sistema.</p>
+
+    <form id="form-contato" novalidate>
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="c-nome">Nome</label>
+          <input id="c-nome" name="nome" type="text" maxlength="80" autocomplete="name" placeholder="Seu nome" required>
+          <small class="error" data-erro="nome"></small>
+        </div>
+        <div class="form-row">
+          <label for="c-email">E-mail</label>
+          <input id="c-email" name="email" type="email" maxlength="120" autocomplete="email" placeholder="voce@exemplo.com" required>
+          <small class="error" data-erro="email"></small>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="c-assunto">Assunto</label>
+        <select id="c-assunto" name="assunto" required>
+          <option value="">Selecione…</option>
+          {% for a in assuntos %}<option value="{{ a }}">{{ a }}</option>{% endfor %}
+        </select>
+        <small class="error" data-erro="assunto"></small>
+      </div>
+      <div class="form-row">
+        <label for="c-mensagem">Mensagem <span class="counter" id="contador">0/1000</span></label>
+        <textarea id="c-mensagem" name="mensagem" rows="5" maxlength="1000" placeholder="Escreva sua mensagem…" required></textarea>
+        <small class="error" data-erro="mensagem"></small>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit" id="btn-enviar">Enviar mensagem</button>
+        <span class="form-status" id="form-status" role="status"></span>
+      </div>
+    </form>
+  </article>
+
+  <article class="panel credits">
+    <h2>Créditos</h2>
+    <ul class="plain-list">
+      <li><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> — dados e imagens do mapa © colaboradores do OpenStreetMap (licença ODbL).</li>
+      <li><a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a> — biblioteca de mapas interativos.</li>
+      <li><a href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener">Inter</a> — fonte tipográfica (Google Fonts).</li>
+    </ul>
+  </article>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/contato.js') }}"></script>
+{% endblock %}

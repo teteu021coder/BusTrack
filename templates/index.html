@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Início{% endblock %}
+
+{% block content %}
+<!-- HERO + BUSCA -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-copy fade-up">
+      <span class="eyebrow"><svg class="icon"><use href="#i-route"/></svg>Mobilidade urbana</span>
+      <h1>Seu transporte público<br>em um só lugar.</h1>
+      <p class="lead">Consulte linhas, trajetos, pontos de parada e horários de saída de forma rápida e simples.</p>
+
+      <div class="search-box" id="busca-home">
+        <svg class="icon search-icon"><use href="#i-search"/></svg>
+        <input type="search" id="busca-input" placeholder="Busque por linha, destino ou ponto de ônibus…"
+               autocomplete="off" aria-label="Buscar linha, destino ou ponto de ônibus"
+               aria-controls="busca-resultados" aria-expanded="false">
+        <div class="search-results" id="busca-resultados" role="listbox" hidden></div>
+      </div>
+      <p class="hero-hint">Exemplos: <button class="link-chip" data-busca="101">101</button>
+        <button class="link-chip" data-busca="Terminal">Terminal</button>
+        <button class="link-chip" data-busca="Hospital">Hospital</button></p>
+    </div>
+
+    <div class="hero-visual fade-up delay-1" aria-hidden="true">
+      <svg viewBox="0 0 420 340" class="route-art">
+        <defs>
+          <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#ffffff"/>
+          </linearGradient>
+        </defs>
+        <path d="M40 280 C 110 280, 90 160, 170 160 S 250 250, 320 190 S 360 80, 390 60"
+              fill="none" stroke="rgba(255,255,255,.18)" stroke-width="14" stroke-linecap="round"/>
+        <path class="route-line" d="M40 280 C 110 280, 90 160, 170 160 S 250 250, 320 190 S 360 80, 390 60"
+              fill="none" stroke="url(#rg)" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 12"/>
+        <g fill="#fff" stroke="#2563eb" stroke-width="5">
+          <circle cx="40" cy="280" r="11"/><circle cx="170" cy="160" r="11"/>
+          <circle cx="320" cy="190" r="11"/><circle cx="390" cy="60" r="11"/>
+        </g>
+        <g class="bus-chip" transform="translate(150 96)">
+          <rect width="124" height="44" rx="14" fill="#fff"/>
+          <circle cx="24" cy="22" r="14" fill="#2563eb"/>
+          <text x="24" y="27" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">101</text>
+          <text x="46" y="19" font-size="10" font-weight="700" fill="#0b2250">Saída em</text>
+          <text x="46" y="34" font-size="12" font-weight="800" fill="#2563eb">poucos min</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <!-- INDICADORES -->
+  <section class="stats" aria-label="Resumo do sistema">
+    <article class="stat-card fade-up">
+      <span class="stat-icon"><svg class="icon"><use href="#i-bus"/></svg></span>
+      <div><strong class="stat-value" id="st-linhas" data-count>–</strong><span class="stat-label">Linhas cadastradas</span></div>
+    </article>
+    <article class="stat-card fade-up delay-1">
+      <span class="stat-icon"><svg class="icon"><use href="#i-pin"/></svg></span>
+      <div><strong class="stat-value" id="st-paradas" data-count>–</strong><span class="stat-label">Pontos de ônibus</span></div>
+    </article>
+    <article class="stat-card fade-up delay-2">
+      <span class="stat-icon"><svg class="icon"><use href="#i-clock"/></svg></span>
+      <div><strong class="stat-value" id="st-horarios" data-count>–</strong><span class="stat-label">Horários cadastrados</span></div>
+    </article>
+    <article class="stat-card fade-up delay-3">
+      <span class="stat-icon"><svg class="icon"><use href="#i-route"/></svg></span>
+      <div><strong class="stat-value" id="st-saidas" data-count>–</strong><span class="stat-label" id="st-saidas-label">Saídas hoje</span></div>
+    </article>
+  </section>
+
+  <!-- ACESSO RÁPIDO -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Acesso rápido</h2>
+      <p>Tudo o que você precisa para planejar seu deslocamento.</p>
+    </div>
+    <div class="quick-grid">
+      <a class="quick-card" href="{{ url_for('pagina_linhas') }}">
+        <span class="quick-icon"><svg class="icon"><use href="#i-bus"/></svg></span>
+        <h3>Consultar linhas</h3>
+        <p>Veja todas as linhas, origem, destino e frequência.</p>
+        <span class="quick-go">Abrir <svg class="icon"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="quick-card" href="{{ url_for('pagina_mapa') }}">
+        <span class="quick-icon"><svg class="icon"><use href="#i-map"/></svg></span>
+        <h3>Mapa interativo</h3>
+        <p>Trajetos das linhas e pontos de parada no mapa.</p>
+        <span class="quick-go">Abrir <svg class="icon"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="quick-card" href="{{ url_for('pagina_horarios') }}">
+        <span class="quick-icon"><svg class="icon"><use href="#i-clock"/></svg></span>
+        <h3>Horários</h3>
+        <p>Saídas em dias úteis, sábados e domingos.</p>
+        <span class="quick-go">Abrir <svg class="icon"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="quick-card" href="{{ url_for('pagina_sobre') }}">
+        <span class="quick-icon"><svg class="icon"><use href="#i-info"/></svg></span>
+        <h3>Sobre o projeto</h3>
+        <p>Objetivo, fontes de dados e formulário de contato.</p>
+        <span class="quick-go">Abrir <svg class="icon"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- PRÓXIMAS SAÍDAS + AVISOS -->
+  <section class="section two-col">
+    <div class="panel">
+      <div class="panel-title">
+        <h2>Próximas saídas</h2>
+        <span class="badge badge-blue" id="dia-badge">Hoje</span>
+      </div>
+      <p class="muted small">Saídas das origens das linhas a partir de agora (dados de demonstração).</p>
+      <ul class="departures" id="lista-saidas" aria-live="polite">
+        <li class="skeleton-row"></li><li class="skeleton-row"></li><li class="skeleton-row"></li>
+      </ul>
+      <a class="btn btn-ghost btn-block" href="{{ url_for('pagina_horarios') }}">Ver todos os horários</a>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title"><h2>Informações e avisos</h2></div>
+      <ul class="notices" id="lista-avisos">
+        <li class="skeleton-row"></li><li class="skeleton-row"></li>
+      </ul>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}
